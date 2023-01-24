@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const xss = require('xss-clean')
 const mongoSanitize = require('express-mongo-sanitize')
+const { handleError, convertToApiError } = require('./middleware/apiError')
 const routes = require('./routes')
 require('dotenv').config()
 
@@ -20,7 +21,7 @@ mongoose
         )
     })
     .catch((err) => {
-        console.error("Error connecting to mongo: ", err)
+        console.error("Error connecting to Mongo: ", err)
     })
 
 
@@ -32,9 +33,14 @@ app.use(express.json())
 app.use(xss())
 app.use(mongoSanitize())
 
-
 //// routes
 app.use('/api', routes)
+
+//// handle errors
+app.use(convertToApiError)
+app.use((err, req, res, next) => {
+    handleError(err, res)
+})
 
 
 const port = process.env.PORT || 5005

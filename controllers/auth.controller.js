@@ -1,4 +1,5 @@
-const {authService} = require('../services')
+const { authService } = require('../services')
+const httpStatus = require('http-status')
 
 const authController = {
     async register(req, res, next) {
@@ -7,13 +8,14 @@ const authController = {
             const user = await authService.createUser(email, password)
             const token = await authService.genAuthToken(user)
 
-            res.cookie('x-access-token', token).status(200).send({ user, token })
+            res.cookie('x-access-token', token).status(httpStatus.CREATED).send({ user, token })
 
         } catch(error) {
-            console.log(error)
+            // console.log(error)
+            next(error)
         }
     },
-     async signin(req, res, next) {
+     async signin(req, res, next) { 
         try {
 
         } catch(error) {
