@@ -6,6 +6,23 @@ const mongoSanitize = require('express-mongo-sanitize')
 const routes = require('./routes')
 require('dotenv').config()
 
+const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`
+
+mongoose
+    .set("strictQuery", false)
+    .connect(mongoUri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then((x) => {
+        console.log(
+            `Connected to Mongo! Database name: "${x.connections[0].name}"`
+        )
+    })
+    .catch((err) => {
+        console.error("Error connecting to mongo: ", err)
+    })
+
 
 //// body parse
 app.use(express.json())
