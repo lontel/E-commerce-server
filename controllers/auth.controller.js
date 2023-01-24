@@ -11,15 +11,18 @@ const authController = {
             res.cookie('x-access-token', token).status(httpStatus.CREATED).send({ user, token })
 
         } catch(error) {
-            // console.log(error)
             next(error)
         }
     },
      async signin(req, res, next) { 
         try {
-
-        } catch(error) {
-            console.log(error)
+            const { email, password } = req.body
+            const user = await authService.signInWithEmailAndPassword(email, password)
+            const token = await authService.genAuthToken(user)
+            res.cookie('x-access-token', token).send({ user, token })
+        }
+        catch (error) {
+            next(error)
         }
     },
      async isauth(req, res, next) {
