@@ -1,7 +1,7 @@
 const passport = require('passport')
 const { ApiError } = require('./apiError')
 const httpStatus = require('http-status')
-// const { roles } = require('../config/roles')
+const { roles } = require('../config/roles')
 
 
 const verify = (req, res, resolve, reject, rights) => async (err, user) => {
@@ -10,7 +10,16 @@ const verify = (req, res, resolve, reject, rights) => async (err, user) => {
     }
 
     req.user = user
-
+    
+    if (rights.length) {
+        const action = rights[0]
+        const resource = rights[1]
+        const permission = roles.can(req.user.role)[action](resource)
+        if (!permission.granted) {
+            return reject(new ApiError(httpStatus.FORBIDDEN, "Sorry, you don't have enough rights"))
+        }
+        res.locals.permission = permission
+    }
     resolve()
 }
 
