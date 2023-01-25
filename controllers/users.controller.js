@@ -14,6 +14,14 @@ const usersController = {
         } catch (error) {
             next(error)
         }
+    },
+    async updateProfile(req, res, next) {
+        try {
+            const user = await userService.updateUserProfile(req)
+            res.json(user)
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

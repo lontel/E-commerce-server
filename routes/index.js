@@ -6,7 +6,7 @@ const userRoutes = require('./user.routes')
 const routesIndex = [
     {
         path: '/auth',
-        routes: authRoutes
+        route: authRoutes
     },
     {
         path: '/users',
@@ -15,7 +15,7 @@ const routesIndex = [
 ]
 
 routesIndex.forEach(route => {
-    router.use(route.path, route.routes)
+    router.use(route.path, route.route)
 })
 
 
