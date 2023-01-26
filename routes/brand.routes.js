@@ -5,5 +5,9 @@ const brandController = require('../controllers/brand.controller')
 
 
 router.post('/brand', auth('createAny', 'brand'), brandController.addBrand)
+router.route('/brand/:id')
+    .get(brandController.getBrand)
+    .delete(auth('deleteAny', 'brand'), brandController.deleteBrand)
+
 
 module.exports = router

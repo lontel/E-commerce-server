@@ -15,5 +15,23 @@ const addBrand = async (brandname) => {
     }
 }
 
+const getBrandById = async (id) => {
+    try {
+        const brand = await Brand.findById(id)
+        if (!brand) throw new ApiError(httpStatus.NOT_FOUND, 'Brand not found!')
+        return brand
+    } catch (error) {
+        throw error
+    }
+}
 
-module.exports = { addBrand }
+const deleteBrandById = async (id) => {
+    try {
+        const brand = await Brand.findByIdAndRemove(id)
+        return brand
+    } catch (error) {
+        throw error
+    }
+}
+
+module.exports = { addBrand, getBrandById, deleteBrandById }
