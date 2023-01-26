@@ -26,6 +26,14 @@ const brandController = {
         } catch (error) {
             next(error)
         }
+    },
+     async getAllBrands(req, res, next) {
+        try {
+            const brands = await brandService.getAllBrands(req.body)
+            res.json(brands)
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
