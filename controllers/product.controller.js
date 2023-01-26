@@ -35,6 +35,22 @@ const productsController = {
         } catch (error) {
             next(error)
         }
+    }    ,
+    async getAllProducts(req, res, next) {
+        try {
+            const products = await productService.getAllProducts(req)
+            res.json(products)
+        } catch (error) {
+            next(error)
+        }
+    },
+    async paginateProducts(req, res, next) {
+        try {
+            const products = await productService.paginateProducts(req)
+            res.json(products)
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

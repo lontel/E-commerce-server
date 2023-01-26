@@ -50,6 +50,7 @@ const productSchema = mongoose.Schema({
     }
 })
 
+productSchema.plugin(aggregatePaginate)
 
 const Product = mongoose.model('Product', productSchema)
 module.exports = { Product }

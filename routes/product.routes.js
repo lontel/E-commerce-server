@@ -10,5 +10,8 @@ router.route('/product/:id')
     .get(productsController.getProductById)
     .patch(auth('updateAny', 'product'), productsController.updateProduct)
     .delete(auth('deleteAny', 'product'), productsController.deleteProduct)
+router.get('/allProducts', productsController.getAllProducts)
+router.post('/paginate/all', productsController.paginateProducts)
+
 
 module.exports = router
