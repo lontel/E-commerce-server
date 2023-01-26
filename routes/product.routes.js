@@ -6,4 +6,9 @@ const { addProductValidator } = require('../middleware/validations')
 
 router.post('/', auth('createAny', 'product'), addProductValidator, productsController.addProduct)
 
+router.route('/product/:id')
+    .get(productsController.getProductById)
+    .patch(auth('updateAny', 'product'), productsController.updateProduct)
+    .delete(auth('deleteAny', 'product'), productsController.deleteProduct)
+
 module.exports = router
