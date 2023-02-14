@@ -47,14 +47,18 @@ app.use(convertToApiError)
 app.use((err, req, res, next) => {
     handleError(err, res)
 })
-
-app.use(express.static('client/build'))
-if(process.env.NODE_ENV === 'production'){
-    const path = require('path')
-    app.get('/*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'../client','build','index.html'))
-    })
-}
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://techstore-vqde.onrender.com")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
+// app.use(express.static('client/build'))
+// if(process.env.NODE_ENV === 'production'){
+//     const path = require('path')
+//     app.get('/*',(req,res)=>{
+//         res.sendFile(path.resolve(__dirname,'../client','build','index.html'))
+//     })
+// }
 
 
 
