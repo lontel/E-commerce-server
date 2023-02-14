@@ -27,7 +27,9 @@ mongoose
         console.error("Error connecting to Mongo: ", err)
     })
 
-app.use(cors())
+app.use(cors({
+  origin: 'https://store-house.netlify.app'
+}))
 
 //// body parse
 app.use(express.json())
