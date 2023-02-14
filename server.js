@@ -27,6 +27,11 @@ mongoose
     })
 
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  next()
+})
+
 //// body parse
 app.use(express.json())
 
@@ -47,6 +52,7 @@ app.use(convertToApiError)
 app.use((err, req, res, next) => {
     handleError(err, res)
 })
+
 
 
 const port = process.env.PORT || 5005
